@@ -6,6 +6,7 @@ add_executable(
     app
         src/main.cpp
         deps/glad/src/gl.c
+        src/window.cpp
 )
 
 add_subdirectory(
