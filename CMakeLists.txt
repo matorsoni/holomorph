@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(holomorph)
+project(gamath LANGUAGES C)
 
 add_executable(
     app

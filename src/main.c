@@ -37,7 +37,9 @@ int main(void)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
 
-    const char* vertex_shader_src = R"(
+    /* Fun fact: Raw string literals are accepted as GCC extensions, so with -std=gnu11 */
+    /*
+    const char* vertex_shader_src = "(
         #version 430
 
         layout (location = 0) in vec2 i_pos;
@@ -47,17 +49,21 @@ int main(void)
             gl_Position = vec4(i_pos.xy, 0.0, 1.0);
         }
     )";
+    */
 
-    const char* fragment_shader_src = R"(
-        #version 430
+   const char* vertex_shader_src =
+    "#version 430\n"
+    "layout (location = 0) in vec2 i_pos;\n"
+    "void main() {\n"
+    "   gl_Position = vec4(i_pos.xy, 0.0, 1.0);\n"
+    "}\n";
 
-        out vec4 o_color;
-
-        void main()
-        {
-            o_color = vec4(1.0, 0.0, 0.0, 1.0);
-        }
-    )";
+    const char* fragment_shader_src =
+        "#version 430\n"
+        "out vec4 o_color;\n"
+        "void main() {\n"
+        "    o_color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+        "}\n";
 
     GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex_shader, 1, & vertex_shader_src, NULL);
@@ -90,7 +96,6 @@ int main(void)
     glAttachShader(program, vertex_shader);
     glAttachShader(program, fragment_shader);
     glLinkProgram(program);
-
     {
         GLint program_linked;
         glGetProgramiv(program, GL_LINK_STATUS, &program_linked);
@@ -105,7 +110,6 @@ int main(void)
 
     glDeleteShader(vertex_shader);
     glDeleteShader(fragment_shader);
-
 
     glBindVertexArray(vao);
     glUseProgram(program);
