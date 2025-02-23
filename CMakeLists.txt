@@ -4,9 +4,9 @@ project(holomorph)
 
 add_executable(
     app
-        src/main.cpp
+        src/main.c
         deps/glad/src/gl.c
-        src/window.cpp
+        src/window.c
 )
 
 add_subdirectory(
@@ -22,5 +22,5 @@ target_include_directories(
 
 target_link_libraries(
     app
-    glfw
+        glfw
 )

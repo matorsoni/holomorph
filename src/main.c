@@ -1,9 +1,9 @@
-#include <cstdio>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "glad/gl.h"
 
-#include "window.hpp"
+#include "window.h"
 
 int main(void)
 {
